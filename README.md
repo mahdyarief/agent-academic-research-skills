@@ -1,8 +1,9 @@
 # agent-academic-research-skills
 
-Paket skill akademik untuk Hermes Agent. Berisi dua skill yang dipakai saat mengerjakan
-penelitian: memverifikasi sumber dan menganalisis literatur. Keduanya bekerja lewat API
-publik yang gratis, dengan penanganan eksplisit saat kuota atau kredensial belum tersedia.
+Paket skill akademik untuk Hermes Agent. Berisi tiga skill yang dipakai saat mengerjakan
+penelitian: memverifikasi sumber, menganalisis literatur, dan menuntun berpikir lewat
+dialog socratic. Dua skill pertama bekerja lewat API publik yang gratis, dengan
+penanganan eksplisit saat kuota atau kredensial belum tersedia.
 
 ## Isi paket
 
@@ -12,6 +13,9 @@ publik yang gratis, dengan penanganan eksplisit saat kuota atau kredensial belum
   kemiripan teks, kontradiksi dan bukti lawan, profil penulis, simulasi review,
   kesalahan logika, matriks tinjauan, rekomendasi jurnal, BibTeX, pembacaan dwibahasa,
   analisis kepadatan topik, dan pencarian kode untuk reproduksi.
+- `skills/socratic-research-dialogue` menuntun pengguna berpikir sendiri lewat lima lapis
+  pertanyaan (T-A-B-K-A: Tujuan, Asumsi, Bukti, Konsekuensi, Alternatif), dengan jangkar
+  fakta ke skill lain agar tidak mengarang. Ditulis dari nol, bukan turunan repo lain.
 
 ## Pemasangan
 
@@ -20,12 +24,13 @@ Salin folder skill ke direktori skill profil Hermes:
 ```
 cp -r skills/academic-source-verification "$HERMES_PROFILE/skills/research/"
 cp -r skills/literature-analysis "$HERMES_PROFILE/skills/research/"
+cp -r skills/socratic-research-dialogue "$HERMES_PROFILE/skills/research/"
 ```
 
 Pada Windows dengan profil `scholar-assist`, direktori tujuannya
 `D:/ai-agent/.hermes/profiles/scholar-assist/skills/research/`.
 
-Hermes memuat isi skill ke dalam konteks saat skill dipanggil, jadi kedua skill ini
+Hermes memuat isi skill ke dalam konteks saat skill dipanggil, jadi skill di paket ini
 sebaiknya dipakai satu per satu sesuai kebutuhan, bukan dimuat bersamaan tanpa alasan.
 
 ## Variabel lingkungan opsional
