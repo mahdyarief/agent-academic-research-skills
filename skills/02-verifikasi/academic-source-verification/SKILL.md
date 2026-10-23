@@ -17,8 +17,8 @@ required_environment_variables:
     required_for: "Pencarian full text OA di Unpaywall saja."
 metadata:
   hermes:
-    tags: [research, citations, open-access, crossref, openalex, semantic-scholar, unpaywall, retraction]
-    related_skills: [arxiv, pdf, grounded-citations, literature-analysis]
+    tags: [research, citations, open-access, crossref, openalex, semantic-scholar, unpaywall, retraction, integrity]
+    related_skills: [arxiv, pdf, grounded-citations, literature-analysis, claim-evidence-map]
 ---
 
 # Verifikasi Sumber Akademik
@@ -130,6 +130,73 @@ doc.close()
 
 Simpan unduhan di folder tetap, misalnya `Path("~/papers").expanduser()` yang dibuat dengan `mkdir(parents=True, exist_ok=True)`, dan pastikan path-nya aman untuk UTF-8. Laporkan path absolut, ukuran byte, dan jumlah halaman.
 
+### 5. Periksa integritas bibliografi
+
+Empat pemeriksaan di atas menjawab "apakah sumber ini nyata". Bagian ini menjawab
+pertanyaan lain: "apakah bibliografi naskah ini bisa dipercaya". Beda dua hal itu penting,
+karena sitasi yang lolos pemeriksaan identitas tetap bisa jadi bagian dari pola yang
+bermasalah.
+
+#### Tiga kelas bukti, jangan dicampur
+
+Setiap sinyal yang kamu laporkan harus jelas masuk kelas apa. Mencampurnya membuat hasil
+pemeriksaan terdengar lebih pasti daripada kenyataannya.
+
+- *Fakta pengamat*: apa yang dikembalikan sebuah layanan pada waktu tertentu. Contoh:
+  OpenAlex membalas `is_retracted` bernilai false pada 23 Oktober 2026. Itu bukan bukti
+  bahwa paper tidak pernah ditarik, hanya catatan apa yang dikatakan basis data.
+- *Petunjuk heuristik*: hasil aturan atau pola yang dicocokkan, misalnya deteksi sitasi
+  yang semuanya terbit dalam rentang dua tahun dengan pola penulis berulang. Ini sinyal
+  untuk diperiksa, bukan temuan.
+- *Atestasi proses*: catatan bahwa sebuah pemeriksaan sudah dijalankan. Ini paling rendah
+  nilainya, karena tidak menyatakan apa hasilnya. "Sudah dicek" bukan "aman".
+
+Status dan temuan juga dua hal terpisah. Pemeriksaan yang berstatus tidak dijalankan,
+tidak diketahui, atau gagal sebagian *tidak boleh* dilaporkan sebagai bersih. Kalau
+sebuah layanan menolak atau tidak bisa dihubungi, hasilnya unresolved, bukan lolos.
+
+#### Sembilan sinyal yang layak diperiksa
+
+- *Satu*, sitasi yang DOI-nya tidak resolve ke record apa pun. Ini sinyal paling kuat,
+  tapi juga paling sering salah karena DOI preprint didaftarkan di DataCite, bukan Crossref.
+  Periksa kedua jalur sebelum menyimpulkan.
+- *Dua*, metadata yang berubah antar versi: nama penulis berbeda, tahun berbeda, atau
+  judul bergeser makna. Catat versi mana yang kamu pakai.
+- *Tiga*, penulis yang tidak punya jejak lain di bidang itu. Bukan bukti pemalsuan, tapi
+  alasan untuk membuka halaman penulis di penerbit, bukan di agregator.
+- *Empat*, jurnal yang mengaku terindeks tapi tidak muncul di direktori resmi yang
+  diklaimnya. Cek langsung di direktori, jangan di situs jurnal.
+- *Satu artikel di banyak jurnal berbeda* dengan isi hampir sama. Ini pola jurnal predator.
+- *Enam*, rentang sitasi yang terlalu rapat ke satu penulis, terutama bila penulis itu
+  juga penulis naskahnya.
+- *Tujuh*, klaim yang dipasangkan pada sitasi tapi kalimat pendukungnya tidak ada di
+  paper yang dikutip. Ini yang paling sering lolos, dan paling merusak.
+- *Delapan*, retraksi yang hanya muncul di penerbit, tidak di basis data. Karena itu
+  pemeriksaan retraksi di bagian 2 harus dibaca bersama halaman paper aslinya.
+- *Sembilan*, daftar pustaka yang memuat karya yang tidak pernah dikutip di badan teks,
+  atau sebaliknya. Ini sinyal bahwa daftar pustaka disusun terpisah dari argumen.
+
+#### Satu bukti, bukan tiga
+
+Tiga berita yang mengutip satu siaran pers adalah *satu* bukti, bukan tiga. Begitu juga
+tiga basis data yang menarik data dari Crossref yang sama.
+
+- Kesesuaian antar sumber hanya bermakna kalau asal-usulnya independen.
+- Kalau semua sumber berasal dari satu asal, katakan itu dan turunkan keyakinan, jangan
+  biarkan pengulangan terbaca sebagai replikasi.
+- Untuk angka juga begitu: kalau dua sumber menyebut angka yang sama, periksa apakah
+  sumber kedua mengutip yang pertama.
+
+#### Cara melaporkan
+
+Untuk setiap sinyal, tulis empat hal: sinyal apa, kelas buktinya apa, status pemeriksaan
+(bersih, dicurigai, atau belum bisa diputuskan), dan apa yang belum diperiksa. Yang
+berstatus belum bisa diputuskan tetap harus muncul di laporan, jangan disembunyikan
+karena terlihat seperti pekerjaan yang belum selesai.
+
+Bedakan tegas antara "tidak ditemukan sinyal" dan "tidak diperiksa". Kalimat "tidak
+ditemukan" hanya boleh dipakai kalau pemeriksaannya benar-benar berjalan dan berhasil.
+
 ## Prosedur
 
 1. Tetapkan DOI, arXiv ID, atau judul. Paper jurnal pakai DOI, preprint arXiv pakai arXiv ID.
@@ -138,6 +205,7 @@ Simpan unduhan di folder tetap, misalnya `Path("~/papers").expanduser()` yang di
 4. Simpulkan identitas. Bila DOI dan metadata cocok, laporkan bahwa identitas sudah terverifikasi. Bila tidak cocok, catat selisihnya dan laporkan apa adanya.
 5. Unduh full text OA bila tersedia, lalu cocokkan halaman pertamanya dengan pymupdf.
 6. Bila terhalang paywall atau 403, laporkan pemeriksaan yang sudah berhasil dan status "akses full text terbatas". Kode 403 juga bisa berarti anti-scraping atau kebijakan akses, jadi jangan dipakai untuk menyimpulkan status paywall atau retraksi, dan jangan mencoba berulang.
+7. Jalankan pemeriksaan integritas bibliografi bila yang diminta bukan satu sitasi, tapi satu daftar pustaka atau satu naskah. Laporkan per sinyal, bukan satu angka kesimpulan.
 
 ## Jebakan
 
@@ -149,6 +217,8 @@ Simpan unduhan di folder tetap, misalnya `Path("~/papers").expanduser()` yang di
 6. PDF penerbit yang berbayar menghasilkan 403 saat diunduh skrip. `oa_status: "bronze"` di OpenAlex hanya berarti dapat dibaca gratis di situs penerbit, bukan berarti bisa diunduh otomatis. Contohnya pdfdirect Wiley yang membalas 403. Setelah 403, laporkan akses terbatas dan jangan mengulang.
 7. Unduhan berhasil bukan berarti isinya benar. Ekstrak teks halaman pertama untuk mencocokkan judul dan penulis, agar tidak salah mengunduh file bernama mirip.
 8. Parameter email Unpaywall diperiksa ketat. Pakai email kontak Anda yang sebenarnya. Layanan bisa membalas 422 untuk email yang kosong atau contoh. Saat `is_oa=false`, `best_oa_location` bernilai null, jadi periksa dulu sebelum mengambilnya.
+9. Jangan mengubah status pemeriksaan yang gagal menjadi "bersih". Layanan yang menolak, timeout, atau belum dikonfigurasi menghasilkan status belum bisa diputuskan. Laporan yang mengubahnya jadi bersih adalah laporan palsu, walaupun niatnya baik.
+10. Jangan menyimpulkan naskah memakai sitasi karangan hanya dari satu sinyal. Pola bermasalah butuh minimal dua sinyal independen, dan tetap dilaporkan sebagai kecurigaan, bukan vonis.
 
 Bahasa keluaran: ikuti bahasa yang dipakai pengguna. Judul dan kutipan paper tetap dalam bahasa aslinya; saat terjemahan pertama kali muncul, sertakan teks aslinya.
 

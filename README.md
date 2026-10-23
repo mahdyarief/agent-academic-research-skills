@@ -1,12 +1,13 @@
-# academic-research-skills-kit
+# agent-academic-research-skills
 
 Kumpulan skill akademik untuk Hermes Agent, disusun berlapis dari riset sampai publikasi.
 Tujuannya satu: dipakai untuk mengerjakan tesis dan menulis paper tanpa harus memilih
 dari delapan puluh lebih skill profil setiap kali.
 
-Enam belas skill ini bukan semuanya tulisan saya. Tiga di antaranya adaptasi dari
+Dua puluh skill ini bukan semuanya tulisan saya. Tiga di antaranya adaptasi dari
 snapshot MIT `xngg1021/hermes-academic-skills`, sisanya skill profil Hermes Agent yang
-saya pakai, sebagian saya modifikasi. Atribusi lengkap per skill ada di `NOTICE.md`.
+saya pakai, sebagian saya modifikasi, tujuh ditulis baru. Atribusi lengkap per skill ada
+di `NOTICE.md`.
 
 ## Apa yang sengaja tidak ikut
 
@@ -16,8 +17,8 @@ dipakai orang lain tanpa data dan konteks yang sama. Isinya bukan rahasia, tapi 
 tidak general.
 
 Yang tersisa murni prosedur: cara merumuskan masalah, cara memetakan literatur, cara
-memverifikasi sumber, cara menulis, cara mengirim. Bisa dipakai untuk tesis maupun paper,
-di bidang apa pun.
+memverifikasi sumber, cara menulis, cara meninjau, cara menjawab reviewer, cara mengirim.
+Bisa dipakai untuk tesis maupun paper, di bidang apa pun.
 
 ## Struktur
 
@@ -31,13 +32,17 @@ di bidang apa pun.
 - `literature-mapping` memetakan lanskap riset untuk membangun bukti celah.
 - `socratic-research-dialogue` menuntun berpikir lewat lima lapis pertanyaan T-A-B-K-A,
   dengan jangkar fakta ke skill lain supaya tidak mengarang.
+- `socratic-reading-probe` menguji apakah satu paper benar-benar sudah dibaca, lewat enam
+  pertanyaan K-B-S-P-K-D dengan tiga status: DAPAT, RAPUH, TIDAK.
 - `arxiv` mencari paper di arXiv.
 - `journal-scouting` mencari paper dan mengumpulkan URL akses terbuka.
 
 ### 02-verifikasi: memeriksa sebelum mengutip
 
 - `academic-source-verification` memastikan sitasi nyata, metadata cocok, tidak ditarik,
-  dan full text yang diunduh benar.
+  dan full text yang diunduh benar. Lima pemeriksaan, termasuk integritas bibliografi.
+- `claim-evidence-map` memetakan setiap klaim naskah ke buktinya, dengan status SIAP,
+  KURANG, atau TAK DINILAI lewat alur WAJIB-SARING-UJI-TOLAK.
 - `literature-analysis` mencari paper mirip, kontradiksi, profil penulis, dan kepadatan
   topik. Dua belas alur kerja.
 - `grounded-citations` mengikat jawaban dan dokumen pada sumber yang bisa diperiksa.
@@ -48,6 +53,10 @@ di bidang apa pun.
 - `thesis-proposal` menyusun proposal atau problem statement.
 - `thesis-docx-writing` mengubah draf markdown menjadi docx yang bersih.
 - `thesis-supervisor-outreach` mendekati calon pembimbing.
+- `manuscript-review-simulation` menjalankan satu putaran review atas naskah sendiri lewat
+  empat sudut ORI-MET-BUK-ARG plus Devil's Advocate, tanpa skor dan tanpa peluang terima.
+- `reviewer-response-coach` menyusun jawaban reviewer atau mengaudit jawaban yang sudah
+  ada, lewat alur PISAH-PILAH-BUKTI-UKUR.
 
 ### 04-publikasi: mengirim
 
@@ -73,7 +82,7 @@ Kalau kamu hanya butuh satu lapis, salin lapis itu saja. Tidak perlu semuanya.
 ## Catatan ukuran
 
 Hermes memuat isi SKILL.md ke dalam konteks saat skill dipanggil. Skill terbesar di paket
-ini sekitar 40 KB, jadi panggil satu per satu sesuai kebutuhan. Jangan memuat seluruh
+ini sekitar 20 KB, jadi panggil satu per satu sesuai kebutuhan. Jangan memuat seluruh
 paket tanpa alasan.
 
 ## Variabel lingkungan opsional
@@ -92,6 +101,10 @@ variabel lingkungan atau berkas `.env` yang masuk `.gitignore`.
 Skill ini alat bantu, bukan pengganti penilaian peneliti. Simulasi review, penandaan
 kesalahan logika, dan penilaian sifat sitasi adalah penilaian model yang harus dipisahkan
 dari fakta data. Laporan selalu menyertakan kutipan agar bisa diperiksa ulang.
+
+Simulasi review tidak memberi skor dan tidak memprediksi peluang diterima. Penilaiannya
+bisa saja berbeda dari reviewer sungguhan, dan itu batas yang harus disebut saat memakai
+hasilnya.
 
 Pembandingan kemiripan teks di `literature-analysis` bersifat lokal dan hanya mencakup
 kandidat yang full text-nya berhasil diunduh. Itu bukan pemeriksaan plagiarisme seluruh web.
