@@ -1,38 +1,73 @@
-# Catatan Asal Usul
+# Catatan Atribusi
 
-Paket skill ini adalah adaptasi untuk Hermes Agent, bukan karya orisinal dari nol.
+Paket ini **kurasi**, bukan karya tunggal. Saya memilih, menata, membersihkan, dan
+beberapa di antaranya mengubah skill yang sudah ada di profil Hermes Agent saya. Siapa
+penulis aslinya tercantum di bawah, dan nama di frontmatter setiap skill adalah penulis
+aslinya, bukan diganti atas nama saya.
 
-Sumber asal: `xngg1021/hermes-academic-skills`, yang kemudian berganti nama menjadi
-`xngg1021/academic-research-kernel`.
+Alasan atribusi dipertahankan: menghapus nama penulis asli lalu menggantinya dengan nama
+penyunting adalah klaim kepengarangan yang tidak benar. Mengurasi bukan menulis.
 
-Snapshot yang diambil: commit `439ce4a29d6d2d9137308d7f9f045863e9f0c5b3`, yaitu commit
-terakhir sebelum proyek itu mengganti lisensinya dari MIT ke Source Lineage License 1.0.
-Snapshot itu diverifikasi berlisensi MIT, dengan copyright Junfu Shi (xngg1021).
+## Cakupan
 
-Yang berubah dari sumber asli:
+Paket ini sengaja **tidak** memuat skill yang terikat langsung ke satu data penelitian
+tertentu. Dua skill seperti itu sengaja dikeluarkan: satu untuk verifikasi angka terhadap
+data penelitian, satu untuk penentuan posisi klaim saat pembelaan. Keduanya berguna untuk
+satu proyek tertentu, tapi tidak bisa dipakai orang lain tanpa data dan konteks yang sama.
 
-- Prosa dan dokumen pendukung diterjemahkan ke Bahasa Indonesia. Istilah teknis tetap
-  dalam Bahasa Inggris karena itu yang dipakai saat mencari di mesin pencari dan paper.
-- Frontmatter disesuaikan dengan standar Hermes: deskripsi maksimal 60 karakter dan
-  berawalan "Use when", penambahan field `adapted_from`, serta penyesuaian nama variabel
-  lingkungan.
-- Konteks Mandarin (CNKI, Wanfang, biblatex-gb7714-2015) diganti konteks literatur
-  Indonesia (Garuda, SINTA, biblatex-apa), dengan gb7714 tetap disebut bila jurnal meminta.
-- Dua bug di kode verifikasi sumber asli diperbaiki. Rinciannya ada di bawah.
-- Referensi ke skill yang tidak ada di paket ini diberi jalur keluar yang jelas.
+Yang tersisa adalah prosedur umum: merumuskan masalah, memetakan literatur, memverifikasi
+sumber, menulis, dan mengirim artikel. Bisa dipakai untuk tesis maupun paper.
 
-## Bug yang diperbaiki saat adaptasi
+## Asal usul per kelompok
 
-1. Paginasi cursor OpenAlex pada `literature-analysis` gagal dengan kode 401. Setelah
-   dilacak, penyebabnya bukan kesalahan kredensial: OpenAlex mewajibkan API key gratis
-   untuk halaman kedua dan seterusnya. Kode asli langsung crash karena menganggapnya
-   galat fatal. Versi ini mendeteksi kondisi itu dan melaporkan SKIP secara eksplisit
-   bila key belum dikonfigurasi, lalu menguji paginasi penuh bila key tersedia.
-2. Gaya BibTeX untuk literatur berbahasa Indonesia pada sumber asli mengarah ke
-   biblatex-gb7714-2015, yang ditujukan untuk literatur berbahasa Mandarin. Versi ini
-   memakai biblatex-apa sebagai default dan menyebut gb7714 hanya sebagai opsi bila
-   jurnal memintanya.
+- **`Mahdy Arief (mahdyarief)`** tiga skill. Dua di antaranya adaptasi dari snapshot MIT
+  `xngg1021/hermes-academic-skills` commit `439ce4a`: `academic-source-verification` dan
+  `literature-analysis`, diterjemahkan ke Bahasa Indonesia, frontmatter disesuaikan
+  standar Hermes, dan dua bug di kode verifikasinya diperbaiki. Satu lagi,
+  `socratic-research-dialogue`, ditulis dari nol.
+- **`Mahdy, Hermes Agent`** delapan skill. Saya yang menulis atau memodifikasi isinya,
+  dengan Hermes Agent sebagai alat bantu penyusunan.
+- **`Hermes Agent`** empat skill. Skill bawaan Hermes Agent yang tidak saya ubah
+  substansinya, hanya dikurasi ke dalam paket ini.
+- **`Hermes Agent + Teknium`** satu skill, `grounded-citations`. Hak cipta tetap milik
+  penulis aslinya.
 
-Semua kode verifikasi di paket ini dijalankan sungguhan sebelum dirilis. Yang tidak bisa
-diuji karena layanan atau kredensial belum tersedia dilaporkan sebagai SKIP, bukan
-diklaim lulus.
+## Daftar lengkap
+
+| lapis | skill | penulis asli | versi |
+|---|---|---|---|
+| 01-riset | `arxiv` | Hermes Agent | 1.0.0 |
+| 01-riset | `design-science-research-positioning` | Mahdy, Hermes Agent | 0.1.0 |
+| 01-riset | `dsr-self-audit` | Mahdy, Hermes Agent | 0.1.0 |
+| 01-riset | `journal-scouting` | Mahdy, Hermes Agent | 0.2.0 |
+| 01-riset | `literature-mapping` | Hermes Agent | 0.1.0 |
+| 01-riset | `research-problem-and-gap` | Mahdy, Hermes Agent | 0.1.0 |
+| 01-riset | `socratic-research-dialogue` | Mahdy Arief (mahdyarief) | 1.0.0 |
+| 02-verifikasi | `academic-source-verification` | Mahdy Arief (mahdyarief) | 1.0.0 |
+| 02-verifikasi | `grounded-citations` | Hermes Agent + Teknium | 1.2.0 |
+| 02-verifikasi | `literature-analysis` | Mahdy Arief (mahdyarief) | 1.0.0 |
+| 03-penulisan | `paper-writing` | Mahdy, Hermes Agent | 0.1.0 |
+| 03-penulisan | `thesis-docx-writing` | Mahdy, Hermes Agent | 0.1.0 |
+| 03-penulisan | `thesis-proposal` | Mahdy, Hermes Agent | 0.1.0 |
+| 03-penulisan | `thesis-supervisor-outreach` | Hermes Agent | 0.1.0 |
+| 04-publikasi | `indo-journal-scouting` | Mahdy, Hermes Agent | 0.1.0 |
+| 04-publikasi | `survey-instrument-design` | Hermes Agent | 1.0.0 |
+
+## Yang saya ubah saat mengurasi
+
+1. Menyusun skill ke dalam empat lapis: riset, verifikasi, penulisan, publikasi.
+2. Mengganti path mesin lokal menjadi placeholder generik `<HERMES_HOME>` dan
+   `<WORKSPACE>`. Tiga skill terdampak: `journal-scouting`, `thesis-proposal`, dan
+   `indo-journal-scouting`.
+3. Mengeluarkan berkas `openalex-keys.json` dari paket, karena berkas itu memuat kunci
+   API milik pemakai mesin dan tidak boleh ikut dibagikan. Polanya ditambahkan ke
+   `.gitignore`.
+4. Membuang dua skill yang terikat ke satu data penelitian tertentu.
+
+Tidak ada materi berlisensi CC BY-NC dari repo lain di paket ini.
+
+## Lisensi
+
+Semua skill berlisensi MIT pada frontmatter-nya. Paket disusun dengan lisensi MIT. Hak
+cipta tiap skill tetap milik penulis yang tercantum, dan notis ini memenuhi kewajiban
+atribusi MIT untuk redistribusi.

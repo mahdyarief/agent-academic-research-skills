@@ -7,7 +7,6 @@ venv/
 # Kredensial
 .env
 .env.*
-!.env.example
 *.key
 
 # Editor dan OS
@@ -16,7 +15,11 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Hasil kerja sementara
+# Hasil kerja
 *.log
-paper_cache/
-downloads/
+_sources/
+
+# Berkas kunci milik pemakai, jangan pernah di-commit
+openalex-keys.json
+*keys.json
+credentials.json
