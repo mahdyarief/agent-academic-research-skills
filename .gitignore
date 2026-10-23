@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Kredensial
+.env
+.env.*
+!.env.example
+*.key
+
+# Editor dan OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Hasil kerja sementara
+*.log
+paper_cache/
+downloads/
