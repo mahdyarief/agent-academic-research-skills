@@ -8,7 +8,7 @@ platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [research, socratic, thesis, mentoring, gap, methodology]
-    related_skills: [research-problem-and-gap, thesis-data-verification, academic-source-verification, literature-analysis, design-science-research-positioning]
+    related_skills: [research-problem-and-gap, claim-evidence-map, socratic-reading-probe, academic-source-verification, literature-analysis, design-science-research-positioning]
 ---
 
 # Dialog Socratic untuk Riset
@@ -40,7 +40,8 @@ Saat pertanyaan menyentuh hal teknis, sumber kebenarannya adalah berkas yang sud
 
 - `academic-source-verification` untuk identitas sitasi, retraksi, dan full text open access. Daftar endpoint dan field-nya sudah diuji jalan, ada di repo `mahdyarief/agent-academic-research-skills`.
 - `literature-analysis` untuk paper mirip, kontradiksi, profil penulis, dan kepadatan topik. Sumber uji yang sama.
-- `thesis-data-verification` untuk angka tesis lawan data penelitian.
+- `claim-evidence-map` untuk memetakan klaim naskah ke bukti dan memberi status
+  SIAP, KURANG, atau TAK DINILAI.
 - `research-problem-and-gap` untuk merumuskan masalah dan celah.
 - `design-science-research-positioning` dan `dsr-self-audit` untuk kerangka Hevner, Peffers, dan Leavitt.
 
